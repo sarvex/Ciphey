@@ -102,8 +102,7 @@ class Brandon(Checker[str]):
         text = self.mh.strip_punctuation(text)
         text = text.split(" ")
         text = filter(lambda x: len(x) > 2, text)
-        text = set(text)
-        return text
+        return set(text)
 
     def checker(self, text: str, threshold: float, text_length: int, var: set) -> bool:
         """Given text determine if it passes checker
@@ -227,15 +226,13 @@ class Brandon(Checker[str]):
         else:
             logging.info(f"It is neither stop or check, but instead {what_to_use}")
 
-        # return False if phase 1 fails
         if not result:
             return None
-        else:
-            what_to_use = self.calculateWhatChecker(
-                length_text, self.thresholds_phase2.keys()
-            )
-            what_to_use = self.thresholds_phase2[str(what_to_use)]
-            result = self.checker(text, what_to_use["dict"], length_text, self.wordlist)
+        what_to_use = self.calculateWhatChecker(
+            length_text, self.thresholds_phase2.keys()
+        )
+        what_to_use = self.thresholds_phase2[str(what_to_use)]
+        result = self.checker(text, what_to_use["dict"], length_text, self.wordlist)
         return "" if result else None
 
     def calculateWhatChecker(self, length_text, key):

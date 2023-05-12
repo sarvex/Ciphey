@@ -11,8 +11,7 @@ class Hexadecimal(Decoder[str]):
         """
         ctext_decoded = ""
         try:
-            ctext_decoded = bytearray.fromhex(ctext).decode("utf-8")
-            return ctext_decoded
+            return bytearray.fromhex(ctext).decode("utf-8")
         except Exception:
             return None
 

@@ -15,16 +15,11 @@ class Galactic(Decoder[str]):
         """
         logging.debug("Attempting Standard Galactic Alphabet decoder")
 
-        # To avoid complications, only move forward with the decoding if we can
-        # reasonably assume that the input string is written in the galactic alphabet
-        galactic_matches = 0
-        for symbol in self.GALACTIC_DICT.keys():
-            # These symbols are assumed to be frequent enough in regular
-            # text to be skipped when counting the matches. All others are counted.
-            if symbol in ctext and symbol not in ["!", "|"]:
-                galactic_matches += 1
-            else:
-                continue
+        galactic_matches = sum(
+            1
+            for symbol in self.GALACTIC_DICT.keys()
+            if symbol in ctext and symbol not in ["!", "|"]
+        )
         if galactic_matches == 0:
             logging.debug(
                 "No matching galactic alphabet letters found. Skipping galactic decoder"
